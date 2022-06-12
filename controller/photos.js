@@ -41,8 +41,12 @@ exports.getPhotoById = (req, res) => {
     ImageModel.findById(req.params.id, (err, result) => {
         if (err) res.send(err.message)
         else {
-            res.set('Content-Type', result.contentType)
-            res.send(result.image)
+            try {
+                res.set('Content-Type', result.contentType)
+                res.send(result.image)
+            } catch (e) {
+                res.send(e.message);
+            }
         }
     })
 }
